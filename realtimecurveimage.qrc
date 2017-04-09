@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>CurveImage/reload_72px_1175851_easyicon.net.png</file>
+        <file>CurveImage/start.png</file>
+        <file>CurveImage/stop.png</file>
+        <file>CurveImage/usb_icon.png</file>
+        <file>CurveImage/bluetooth_icon.png</file>
+    </qresource>
+</RCC>

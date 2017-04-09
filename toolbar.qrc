@@ -1,0 +1,53 @@
+<RCC>
+    <qresource prefix="/new/toolbar">
+        <file>toolbarImage/accessibility_128px_1170176_easyicon.net.png</file>
+        <file>toolbarImage/blood_95.228200371058px_1179403_easyicon.net.png</file>
+        <file>toolbarImage/Drops_of_water_128px_1181439_easyicon.net.png</file>
+        <file>toolbarImage/filter_72px_34114_easyicon.net.png</file>
+        <file>toolbarImage/flower_128px_1185630_easyicon.net.png</file>
+        <file>toolbarImage/help.png</file>
+        <file>toolbarImage/Login_128px_1186301_easyicon.net.png</file>
+        <file>toolbarImage/logout.png</file>
+        <file>toolbarImage/logout_128px_1067869_easyicon.net.png</file>
+        <file>toolbarImage/male_user_add_128px_1142198_easyicon.net.png</file>
+        <file>toolbarImage/notes.png</file>
+        <file>toolbarImage/ooopic_1447814432.png</file>
+        <file>toolbarImage/patient.png</file>
+        <file>toolbarImage/print.png</file>
+        <file>toolbarImage/print_80.64.png</file>
+        <file>toolbarImage/printer41.png</file>
+        <file>toolbarImage/printer49.png</file>
+        <file>toolbarImage/report.png</file>
+        <file>toolbarImage/start.png</file>
+        <file>toolbarImage/start_128px_1169786_easyicon.net.png</file>
+        <file>toolbarImage/Stop_128px_1191714_easyicon.net.png</file>
+        <file>toolbarImage/stop.png</file>
+        <file>toolbarImage/undo.png</file>
+        <file>toolbarImage/undo_72px_1086647_easyicon.net.png</file>
+        <file>toolbarImage/undo_72px_1121367_easyicon.net.png</file>
+        <file>toolbarImage/zoom_in_128px_1175892_easyicon.net.png</file>
+        <file>toolbarImage/zoom_out_128px_1175893_easyicon.net.png</file>
+        <file>toolbarImage/Clear_256px_1186688_easyicon.net.png</file>
+        <file>toolbarImage/pause_circle_outline_128px_1182100_easyicon.net.png</file>
+        <file>toolbarImage/Photo_678px_1183654_easyicon.net.png</file>
+        <file>toolbarImage/Magnifier_213px_1194797_easyicon.net.png</file>
+        <file>toolbarImage/Maximize_512px_1178190_easyicon.net.png</file>
+        <file>toolbarImage/center_focus_weak_128px_1181747_easyicon.net.png</file>
+        <file>toolbarImage/bluetooth_icon.png</file>
+        <file>toolbarImage/usb_icon.png</file>
+        <file>toolbarImage/Open_Lock_508px_1183229_easyicon.net.png</file>
+        <file>toolbarImage/CancelPushButton.png</file>
+        <file>toolbarImage/OKPushButton .png</file>
+        <file>toolbarImage/Home_Door_128px_1062471_easyicon.net.png</file>
+        <file>toolbarImage/pre-expriment.png</file>
+        <file>toolbarImage/rs232_icon.png</file>
+        <file>toolbarImage/delete.png</file>
+        <file>toolbarImage/new_file.png</file>
+        <file>toolbarImage/realdata.png</file>
+        <file>toolbarImage/cell_merge_76px_1115940_easyicon.net.png</file>
+        <file>toolbarImage/multiple.png</file>
+        <file>toolbarImage/捕获.PNG</file>
+        <file>toolbarImage/TEG.PNG</file>
+        <file>toolbarImage/HDBExchange.png</file>
+    </qresource>
+</RCC>

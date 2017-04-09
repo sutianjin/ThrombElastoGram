@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>CurveImage/frequency.png</file>
+        <file>CurveImage/magnet.png</file>
+        <file>CurveImage/Pulse.png</file>
+        <file>CurveImage/resistor.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>toolbarImage/teg_yellow.ico</file>
+        <file>APPICON/Medical.ico</file>
+    </qresource>
+</RCC>
