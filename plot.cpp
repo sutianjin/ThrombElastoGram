@@ -58,8 +58,8 @@ private:
         //改变背景颜色
         QLinearGradient gradient;
         gradient.setCoordinateMode( QGradient::StretchToDeviceMode );
-        gradient.setColorAt( 0.0, QColor( 255, 251, 250 ) );
-        gradient.setColorAt( 1.0, QColor( 255, 251, 250  ) );
+        gradient.setColorAt( 0.0, QColor( 0, 0, 0 ) );
+        gradient.setColorAt( 1.0, QColor( 0, 0, 0 ) );
 
         pal.setBrush( QPalette::Window, QBrush( gradient ) );
 #else

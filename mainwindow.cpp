@@ -28,7 +28,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_bIsStartReceiveDataFlag(false),
     m_bIsStopReceiveDataFlag(false),
     m_iCurrentScanNum(0),
-    m_viewtype(OriginPhaseType)
+    m_viewtype(OriginPhaseType),
+    isOptimalDCBiasFlag(false),
+    isOptimalACBiasFlag(false),
+    iDCScanNum(0),
+    iACScanNum(0)
 {
     ui->setupUi(this);
 
@@ -92,6 +96,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&ProcessNoDataTimer, SIGNAL(timeout()), this, SLOT(LongTimeNoData()));
 
     QObject::connect(ui->actionPrint,SIGNAL(triggered(bool)),this,SLOT(onPrintReportTriggered()));
+
+
+    QObject::connect(&optimalDCBiasForm,&OptimalDCBiasForm::sendOptimalDCPara,
+                     this,&MainWindow::OptimalDCBiasScan);
+
+    QObject::connect(&optimalACBiasForm,&OptimalACBiasForm::sendOptimalACPara,
+                     this,&MainWindow::OptimalACBiasScan);
 
 
 }
@@ -287,8 +298,27 @@ void MainWindow::onDataReady()
             }else{
                 ui->statusBar->showMessage(tr("数据接收异常结束！"),1000);
                 StopDetectSignal();
+            }           
+        }
+
+        //判断是否为最佳偏置扫描
+        if(isOptimalACBiasFlag){
+            iACScanNum++;
+            if((iACScanNum*iStepAC)+iStartAC<=iStopAC){
+                sendOptimalDCPara((iACScanNum*iStepAC)+iStartAC);
+            }else{
+                isOptimalACBiasFlag = false;
             }
         }
+        if(isOptimalDCBiasFlag){
+            iDCScanNum++;
+            if((iDCScanNum*iStepDC)+iStartDC<=iStopDC){
+                sendOptimalDCPara((iDCScanNum*iStepDC)+iStartDC);
+            }else{
+                isOptimalDCBiasFlag = false;
+            }
+        }
+
 
     }
 }
@@ -599,6 +629,16 @@ bool MainWindow::addChannelData(QByteArray &data, unsigned size)
     m_vecAmpResPoint.append(ampresPoint);
     m_vecPhaseResPoint.append(phaseresPoint);
 
+    if(isOptimalDCBiasFlag){
+        QPointF DCAmpPoint((iDCScanNum*iStepDC)+iStartDC,phaseresPoint.y());
+        optimalDCBiasForm.drawOptimalDCBiasCurve(DCAmpPoint);
+    }
+
+    if(isOptimalACBiasFlag){
+        QPointF ACAmpPoint((iACScanNum*iStepAC)+iStartAC,phaseresPoint.y());
+        optimalACBiasForm.drawOptimalACBiasCurve(ACAmpPoint);
+    }
+
     //存储原始数据
     if(!m_listAmpPoint.isEmpty()){
         QString test_id = m_listPlotInfo.last()->GetTestSampleID();
@@ -778,7 +818,7 @@ void MainWindow::IsShowPreExperiment()
         ui->frame_12->hide();
         m_viewOriginDataPlot.hide();
         m_OriginPlot.show();
-       // m_twParaSet.show();
+        m_twParaSet.show();
         m_testParaForm.show();
         m_bIsPreExperiment = true;
     }else{
@@ -1427,4 +1467,93 @@ void MainWindow::on_actionHDBExchange_triggered()
     HDBExchangeDlg *hdbExchangedlg = new HDBExchangeDlg();
 
     hdbExchangedlg->show();
+}
+
+
+void MainWindow::OptimalDCBiasScan(int istartDC, int istopDC, int istepDC)
+{
+    if(!m_listAmpPoint.isEmpty())
+    {
+        ClearAllCurves();
+        m_OriginPlot.replot();
+    }
+    iStartDC = istartDC;
+    iStopDC = istopDC;
+    iStepDC = istepDC;
+    iDCScanNum = 0;
+
+    isOptimalDCBiasFlag = true;
+    sendOptimalDCPara(istartDC);
+    ui->actionStopDetect->setEnabled(true);
+    ui->actionStartDetect->setEnabled(false);
+
+//    for(unsigned int currentDCvalue = istartDC; currentDCvalue<=istopDC; currentDCvalue = currentDCvalue+istepDC){
+//        sendOptimalDCPara(currentDCvalue);
+//        //以相位的共振幅值来判断其
+//        QPointF DCAmpPoint(currentDCvalue,m_vecPhaseResPoint.last().ry());
+//        optimalDCBiasForm.drawOptimalDCBiasCurve(DCAmpPoint);
+
+//    }
+//    ui->actionStopDetect->setEnabled(false);
+//    ui->actionStartDetect->setEnabled(true);
+
+}
+
+
+void MainWindow::sendOptimalDCPara(int DCValue)
+{
+
+    qDebug()<<m_bPortIsOpened;
+
+    if(!m_bPortIsOpened){
+        m_commConfigDlg.togglePort();
+        //判断串口是否能使用
+        if(m_serialPort.isOpen()){
+            m_stParaInfo = m_commConfigDlg.GetParaInfo();
+            m_stParaInfo.iOptionalDC = DCValue;
+            m_stParaInfo.iScanNumbers = 1;
+            SendStartCommand(m_stParaInfo);
+            m_bPortIsOpened = true;
+        }
+        m_serialPort.waitForReadyRead(1000);
+    }
+
+}
+
+void MainWindow::OptimalACBiasScan(int istartAC, int istopAC, int istepAC)
+{
+    if(!m_listAmpPoint.isEmpty())
+    {
+        ClearAllCurves();
+        m_OriginPlot.replot();
+    }
+    iStartAC = istartAC;
+    iStopAC = istopAC;
+    iStepAC = istepAC;
+    iACScanNum = 0;
+
+    isOptimalACBiasFlag = true;
+    sendOptimalACPara(istartAC);
+    ui->actionStopDetect->setEnabled(true);
+    ui->actionStartDetect->setEnabled(false);
+}
+
+void MainWindow::sendOptimalACPara(int ACValue)
+{
+
+    qDebug()<<m_bPortIsOpened;
+
+    if(!m_bPortIsOpened){
+        m_commConfigDlg.togglePort();
+        //判断串口是否能使用
+        if(m_serialPort.isOpen()){
+            m_stParaInfo = m_commConfigDlg.GetParaInfo();
+            m_stParaInfo.iOptionalAC = ACValue;
+            m_stParaInfo.iScanNumbers = 1;
+            SendStartCommand(m_stParaInfo);
+            m_bPortIsOpened = true;
+        }
+        m_serialPort.waitForReadyRead(1000);
+    }
+
 }

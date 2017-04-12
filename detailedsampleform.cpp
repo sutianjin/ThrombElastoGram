@@ -256,6 +256,7 @@ void DetailedSampleForm::SetCurveDataView(int curvetype)
         RvalueMarkers.hide();
         KvalueMarkers.hide();
         MAvalueMarkers.hide();
+        AngleCruve.hide();
        // ui->tegCurvePlot->detachItems(QwtPlotItem::Rtti_PlotCurve);
        // ui->tegCurvePlot->detachItems(QwtPlotItem::Rtti_PlotMarker);
         m_qwtPhaseCurve.show();
@@ -266,6 +267,7 @@ void DetailedSampleForm::SetCurveDataView(int curvetype)
         RvalueMarkers.show();
         KvalueMarkers.show();
         MAvalueMarkers.show();
+        AngleCruve.show();
        // ui->tegCurvePlot->detachItems(QwtPlotItem::Rtti_PlotCurve);
        // ui->tegCurvePlot->detachItems(QwtPlotItem::Rtti_PlotMarker);
         m_qwtPhaseCurve.hide();

@@ -79,6 +79,10 @@ private slots:
 
     void on_actionHDBExchange_triggered();
 
+    //最佳偏置设置
+    void OptimalDCBiasScan(int istartDC,int istopDC,int istepDC);
+    void OptimalACBiasScan(int istartAC,int istopAC,int istepAC);
+
 private:
     Ui::MainWindow *ui;
 
@@ -187,6 +191,28 @@ private:
 
    //选择对比数据库窗口
   SelectMergeDlg m_selectMergeDlg;
+
+
+  //最佳偏置设置
+  void sendOptimalDCPara(int DCValue);
+  void sendOptimalACPara(int ACValue);
+
+  bool isOptimalDCBiasFlag;
+  bool isOptimalACBiasFlag;
+
+  int iStartDC;    //起始直流激励
+  int iStopDC;      //终止的直流激励
+  int iStepDC;      //步进的直流激励间隔
+
+  int iStartAC;
+  int iStopAC;
+  int iStepAC;
+
+  int iDCScanNum;
+  int iACScanNum;
+
+
+
 
 
 };
